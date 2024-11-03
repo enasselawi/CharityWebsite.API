@@ -8,7 +8,24 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); 
+
+
+
+
+builder.Services.AddCors(corsOptions =>
+{
+
+    corsOptions.AddPolicy("policy",
+    builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+
+
+});
+
+
 
 // Add services to the container.
 
@@ -30,7 +47,8 @@ builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<IDonationFormRepository,DonationFormRepository>();
 builder.Services.AddScoped<IDonationFormService, DonationFormService>();
-
+builder.Services.AddScoped<ICharityCategoryRepository,CharityCategoryRepository>();
+builder.Services.AddScoped<ICharityCategoryService, CharityCategoryService>();
 
 
 
@@ -74,6 +92,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("policy");
 
 app.MapControllers();
 
