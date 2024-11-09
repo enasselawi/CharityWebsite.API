@@ -12,16 +12,13 @@ namespace CharityWebsite.Infra.Service
     public class DonationService: IDonationService
     {
         private readonly IDonationRepository _donationRepository;
-     
 
         public DonationService(IDonationRepository donationRepository)
         {
             _donationRepository = donationRepository;
-           
         }
 
-
-        public void Donate(int userID, int charityID, decimal amount, string cardNumber, DateTime expiryDate, string cvv)
+        public void ProcessDonation(int userID, int charityID, decimal amount, string cardNumber, DateTime expiryDate, string cvv)
         {
             _donationRepository.ProcessDonation(userID, charityID, amount, cardNumber, expiryDate, cvv);
         }
