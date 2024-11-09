@@ -18,7 +18,6 @@ namespace CharityWebsite.Core.Data
         public decimal? Userid { get; set; }
         public decimal? Donationformid { get; set; }
 
-        public virtual Charity? Charity { get; set; }
         public virtual Donationform? Donationform { get; set; }
         public virtual Userr? User { get; set; }
         public virtual ICollection<Visacard> Visacards { get; set; }

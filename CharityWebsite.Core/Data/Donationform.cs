@@ -17,7 +17,6 @@ namespace CharityWebsite.Core.Data
         public string? Status { get; set; }
         public decimal? Charityid { get; set; }
 
-        public virtual Charity? Charity { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }
     }
 }

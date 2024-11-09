@@ -17,7 +17,7 @@ namespace CharityWebsite.API.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Auth(Userr userr)
+        public IActionResult Auth([FromBody] Userr userr)
         {
             var token = _loginService.Auth(userr);
             if (token == null)

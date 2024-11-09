@@ -9,6 +9,8 @@ namespace CharityWebsite.Core.Data
         public string? Emailsent { get; set; }
         public DateTime? Datesent { get; set; }
         public decimal? Userid { get; set; }
+        public decimal? Amount { get; set; }
+        public decimal? Charityid { get; set; }
 
         public virtual Userr? User { get; set; }
     }

@@ -20,6 +20,7 @@ namespace CharityWebsite.Core.Data
         public virtual DbSet<Charity> Charities { get; set; } = null!;
         public virtual DbSet<Charitycategory> Charitycategories { get; set; } = null!;
         public virtual DbSet<Donation> Donations { get; set; } = null!;
+        public virtual DbSet<DonationHistory> DonationHistories { get; set; } = null!;
         public virtual DbSet<Donationform> Donationforms { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<Problemreport> Problemreports { get; set; } = null!;
@@ -35,7 +36,7 @@ namespace CharityWebsite.Core.Data
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseOracle("User Id=C##Enas2001;Password=2001;Data Source=localhost:1521/xe");
+                optionsBuilder.UseOracle("User Id=C##Enas2001;PASSWORD=2001;DATA SOURCE=localhost:1521/xe");
             }
         }
 
@@ -133,6 +134,7 @@ namespace CharityWebsite.Core.Data
                 entity.HasOne(d => d.Charitycategory)
                     .WithMany(p => p.Charities)
                     .HasForeignKey(d => d.Charitycategoryid)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_CATEGORYCHARITY");
 
                 entity.HasOne(d => d.User)
@@ -190,11 +192,6 @@ namespace CharityWebsite.Core.Data
                     .HasColumnType("NUMBER")
                     .HasColumnName("USERID");
 
-                entity.HasOne(d => d.Charity)
-                    .WithMany(p => p.Donations)
-                    .HasForeignKey(d => d.Charityid)
-                    .HasConstraintName("FK_DONCHARITY");
-
                 entity.HasOne(d => d.Donationform)
                     .WithMany(p => p.Donations)
                     .HasForeignKey(d => d.Donationformid)
@@ -204,6 +201,54 @@ namespace CharityWebsite.Core.Data
                     .WithMany(p => p.Donations)
                     .HasForeignKey(d => d.Userid)
                     .HasConstraintName("FK_USERDON");
+            });
+
+            modelBuilder.Entity<DonationHistory>(entity =>
+            {
+                entity.HasKey(e => e.Donationid)
+                    .HasName("SYS_C008636");
+
+                entity.ToTable("DONATION_HISTORY");
+
+                entity.Property(e => e.Donationid)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("DONATIONID");
+
+                entity.Property(e => e.Charityid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("CHARITYID");
+
+                entity.Property(e => e.Donationamount)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("DONATIONAMOUNT");
+
+                entity.Property(e => e.Donationdate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("DONATIONDATE")
+                    .HasDefaultValueSql("SYSDATE");
+
+                entity.Property(e => e.Donationtype)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("DONATIONTYPE")
+                    .HasDefaultValueSql("'Money'");
+
+                entity.Property(e => e.Userid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("USERID");
+
+                entity.HasOne(d => d.Charity)
+                    .WithMany(p => p.DonationHistories)
+                    .HasForeignKey(d => d.Charityid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("SYS_C008638");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DonationHistories)
+                    .HasForeignKey(d => d.Userid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("SYS_C008637");
             });
 
             modelBuilder.Entity<Donationform>(entity =>
@@ -238,11 +283,6 @@ namespace CharityWebsite.Core.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("STATUS");
-
-                entity.HasOne(d => d.Charity)
-                    .WithMany(p => p.Donationforms)
-                    .HasForeignKey(d => d.Charityid)
-                    .HasConstraintName("FK_DONFORMCHARITY");
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -253,6 +293,14 @@ namespace CharityWebsite.Core.Data
                     .HasColumnType("NUMBER")
                     .ValueGeneratedOnAdd()
                     .HasColumnName("INVOICEID");
+
+                entity.Property(e => e.Amount)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("AMOUNT");
+
+                entity.Property(e => e.Charityid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("CHARITYID");
 
                 entity.Property(e => e.Datesent)
                     .HasColumnType("DATE")

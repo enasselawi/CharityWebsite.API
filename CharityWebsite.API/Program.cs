@@ -6,10 +6,12 @@ using CharityWebsite.Infra.Repository;
 using CharityWebsite.Infra.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args); 
 
+var builder = WebApplication.CreateBuilder(args);
 
 
 
@@ -27,13 +29,20 @@ builder.Services.AddCors(corsOptions =>
 
 
 
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
 builder.Services.AddScoped<IDbContext, DbContext>();
+
+
 builder.Services.AddScoped<IProblemreportRepository, ProblemreportRepository>();
 builder.Services.AddScoped<IProblemreportService, ProblemreportService>();
 builder.Services.AddScoped<ICharityRepository, CharityRepository>();
@@ -49,12 +58,11 @@ builder.Services.AddScoped<IDonationFormRepository,DonationFormRepository>();
 builder.Services.AddScoped<IDonationFormService, DonationFormService>();
 builder.Services.AddScoped<ICharityCategoryRepository,CharityCategoryRepository>();
 builder.Services.AddScoped<ICharityCategoryService, CharityCategoryService>();
-
-
-
-
-
-
+builder.Services.AddScoped<ICharityCategoryService, CharityCategoryService>();
+builder.Services.AddScoped<IDonationRepository,DonationRepository>();
+builder.Services.AddScoped<IDonationService, DonationService>(); 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 

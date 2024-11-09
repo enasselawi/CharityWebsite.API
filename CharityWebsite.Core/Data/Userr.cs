@@ -8,6 +8,7 @@ namespace CharityWebsite.Core.Data
         public Userr()
         {
             Charities = new HashSet<Charity>();
+            DonationHistories = new HashSet<DonationHistory>();
             Donations = new HashSet<Donation>();
             Invoices = new HashSet<Invoice>();
             Problemreports = new HashSet<Problemreport>();
@@ -26,6 +27,7 @@ namespace CharityWebsite.Core.Data
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Charity> Charities { get; set; }
+        public virtual ICollection<DonationHistory> DonationHistories { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Problemreport> Problemreports { get; set; }

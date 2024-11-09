@@ -8,8 +8,7 @@ namespace CharityWebsite.Core.Data
         public Charity()
         {
             Bankaccounts = new HashSet<Bankaccount>();
-            Donationforms = new HashSet<Donationform>();
-            Donations = new HashSet<Donation>();
+            DonationHistories = new HashSet<DonationHistory>();
             Problemreports = new HashSet<Problemreport>();
         }
 
@@ -27,8 +26,7 @@ namespace CharityWebsite.Core.Data
         public virtual Charitycategory? Charitycategory { get; set; }
         public virtual Userr? User { get; set; }
         public virtual ICollection<Bankaccount> Bankaccounts { get; set; }
-        public virtual ICollection<Donationform> Donationforms { get; set; }
-        public virtual ICollection<Donation> Donations { get; set; }
+        public virtual ICollection<DonationHistory> DonationHistories { get; set; }
         public virtual ICollection<Problemreport> Problemreports { get; set; }
     }
 }
