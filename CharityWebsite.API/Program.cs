@@ -68,7 +68,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 
 
-
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

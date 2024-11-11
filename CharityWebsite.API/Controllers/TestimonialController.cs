@@ -16,13 +16,13 @@ namespace CharityWebsite.API.Controllers
             this.testimonialService = testimonialService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllTestimonials")]
         public ActionResult<List<Testimonial>> GetAllTestimonials()
         {
             return Ok(testimonialService.GetAllTestimonials());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetTestimonialById/{id}")]
         public ActionResult<Testimonial> GetTestimonialById(int id)
         {
             var testimonial = testimonialService.GetTestimonialById(id);
@@ -33,14 +33,14 @@ namespace CharityWebsite.API.Controllers
             return Ok(testimonial);
         }
 
-        [HttpPost]
+        [HttpPost("CreateTestimonial")]
         public ActionResult CreateTestimonial([FromBody] Testimonial testimonial)
         {
             testimonialService.CreateTestimonial(testimonial);
             return CreatedAtAction(nameof(GetTestimonialById), new { id = testimonial.Testimonalid }, testimonial);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateTestimonial/{id}")]
         public IActionResult UpdateTestimonial(int id, [FromBody] Testimonial testimonial)
         {
             if (id != testimonial.Testimonalid)
@@ -52,7 +52,7 @@ namespace CharityWebsite.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteTestimonial/{id}")]
         public IActionResult DeleteTestimonial(int id)
         {
             testimonialService.DeleteTestimonial(id);

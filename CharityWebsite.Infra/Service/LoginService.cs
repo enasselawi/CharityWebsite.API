@@ -50,7 +50,9 @@ namespace CharityWebsite.Infra.Service
 
              new Claim(ClaimTypes.Email, result.Email),
 
-             new Claim(ClaimTypes.Role, result.Roleid.ToString())
+             new Claim(ClaimTypes.Role, result.Roleid.ToString()),
+            //the edit here
+             new Claim(ClaimTypes.NameIdentifier,result.Userid.ToString())
 
              };
 
