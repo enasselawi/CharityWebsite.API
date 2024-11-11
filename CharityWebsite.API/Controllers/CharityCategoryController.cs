@@ -43,5 +43,13 @@ namespace CharityWebsite.API.Controllers
             return Ok();
         }
 
+        [HttpGet("GetAllCharityCategoriesWithCharities")]
+        public ActionResult<List<CharityCategoryWithCharities>> GetAllCharityCategoriesWithCharities()
+        {
+            var result = _service.GetAllCharityCategoriesWithCharities();
+            return Ok(result);
+        }
+
+
     }
 }

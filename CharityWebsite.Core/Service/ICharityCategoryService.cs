@@ -14,5 +14,7 @@ namespace CharityWebsite.Core.Service
         void CreateCharityCategory(Charitycategory charityCategory);
         void UpdateCharityCategory(Charitycategory charityCategory);
         void DeleteCharityCategory(int id);
+        //the new added 
+        List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities();
     }
 }

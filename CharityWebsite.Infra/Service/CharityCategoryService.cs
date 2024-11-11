@@ -27,5 +27,11 @@ namespace CharityWebsite.Infra.Service
         public void UpdateCharityCategory(Charitycategory charityCategory) => _repository.UpdateCharityCategory(charityCategory);
 
         public void DeleteCharityCategory(int id) => _repository.DeleteCharityCategory(id);
+        // the new added 
+        public List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities()
+        {
+            return _repository.GetAllCharityCategoriesWithCharities();
+        }
+
     }
 }

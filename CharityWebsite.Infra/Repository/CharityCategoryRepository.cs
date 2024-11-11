@@ -59,5 +59,14 @@ namespace CharityWebsite.Infra.Repository
 
             _dbContext.Connection.Execute("CHARITYCATEGORY_PACKAGE.DELETECHARITYCATEGORY", p, commandType: CommandType.StoredProcedure);
         }
+        public List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities()
+        {
+            var result = _dbContext.Connection.Query<CharityCategoryWithCharities>(
+                "CHARITYCATEGORY_PACKAGE.GET_ALL_CATEGORIES_WITH_CHARITIES",
+                commandType: CommandType.StoredProcedure
+            );
+            return result.ToList();
+        }
+
     }
 }
