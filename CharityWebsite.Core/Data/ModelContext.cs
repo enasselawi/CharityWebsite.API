@@ -19,6 +19,7 @@ namespace CharityWebsite.Core.Data
         public virtual DbSet<Bankaccount> Bankaccounts { get; set; } = null!;
         public virtual DbSet<Charity> Charities { get; set; } = null!;
         public virtual DbSet<Charitycategory> Charitycategories { get; set; } = null!;
+        public virtual DbSet<ContactMessage> ContactMessages { get; set; } = null!;
         public virtual DbSet<Donation> Donations { get; set; } = null!;
         public virtual DbSet<DonationHistory> DonationHistories { get; set; } = null!;
         public virtual DbSet<Donationform> Donationforms { get; set; } = null!;
@@ -156,6 +157,44 @@ namespace CharityWebsite.Core.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("CATEGORYNAME");
+            });
+
+            modelBuilder.Entity<ContactMessage>(entity =>
+            {
+                entity.HasKey(e => e.Messageid)
+                    .HasName("SYS_C008644");
+
+                entity.ToTable("CONTACT_MESSAGES");
+
+                entity.Property(e => e.Messageid)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("MESSAGEID");
+
+                entity.Property(e => e.Datesubmitted)
+                    .HasColumnType("DATE")
+                    .HasColumnName("DATESUBMITTED")
+                    .HasDefaultValueSql("SYSDATE\n");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("EMAIL");
+
+                entity.Property(e => e.Messagecontent)
+                    .HasMaxLength(500)
+                    .IsUnicode(false)
+                    .HasColumnName("MESSAGECONTENT");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("NAME");
+
+                entity.Property(e => e.Subject)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("SUBJECT");
             });
 
             modelBuilder.Entity<Donation>(entity =>
