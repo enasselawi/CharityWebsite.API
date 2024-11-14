@@ -73,11 +73,13 @@ namespace CharityWebsite.Core.Data
                 entity.HasOne(d => d.Charity)
                     .WithMany(p => p.Bankaccounts)
                     .HasForeignKey(d => d.Charityid)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_CHARITYBANK");
 
                 entity.HasOne(d => d.Website)
                     .WithMany(p => p.Bankaccounts)
                     .HasForeignKey(d => d.Websiteid)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_WEBBANK");
             });
 
@@ -126,7 +128,8 @@ namespace CharityWebsite.Core.Data
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
                     .IsUnicode(false)
-                    .HasColumnName("STATUS");
+                    .HasColumnName("STATUS")
+                    .HasDefaultValueSql("'Pending'");
 
                 entity.Property(e => e.Userid)
                     .HasColumnType("NUMBER")
@@ -141,6 +144,7 @@ namespace CharityWebsite.Core.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Charities)
                     .HasForeignKey(d => d.Userid)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_USERCHARITY");
             });
 
@@ -542,11 +546,6 @@ namespace CharityWebsite.Core.Data
                 entity.Property(e => e.Roleid)
                     .HasColumnType("NUMBER")
                     .HasColumnName("ROLEID");
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Userrs)
-                    .HasForeignKey(d => d.Roleid)
-                    .HasConstraintName("FK_ROLEUSER");
             });
 
             modelBuilder.Entity<Visacard>(entity =>

@@ -25,7 +25,6 @@ namespace CharityWebsite.Core.Data
         public string? Imagepath { get; set; }
         public decimal? Roleid { get; set; }
 
-        public virtual Role? Role { get; set; }
         public virtual ICollection<Charity> Charities { get; set; }
         public virtual ICollection<DonationHistory> DonationHistories { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }
