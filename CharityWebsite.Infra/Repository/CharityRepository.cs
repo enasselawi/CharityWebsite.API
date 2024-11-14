@@ -39,7 +39,8 @@ namespace CharityWebsite.Infra.Repository
             p.Add("new_description", charity.Charitydescription, DbType.String, ParameterDirection.Input);
             p.Add("new_location", charity.Location, DbType.String, ParameterDirection.Input);
             p.Add("new_goals", charity.Goals, DbType.String, ParameterDirection.Input);
-            p.Add("new_status", charity.Status, DbType.String, ParameterDirection.Input);
+          //  p.Add("new_status", charity.Status, DbType.String, ParameterDirection.Input);
+            p.Add("new_status", charity.Status ?? "Pending", DbType.String, ParameterDirection.Input); // Default to "Pending"
             p.Add("new_user_id", charity.Userid, DbType.Int32, ParameterDirection.Input);
             p.Add("new_category_id", charity.Charitycategoryid, DbType.Int32, ParameterDirection.Input);
             p.Add("new_mission", charity.Mission, DbType.String, ParameterDirection.Input);
