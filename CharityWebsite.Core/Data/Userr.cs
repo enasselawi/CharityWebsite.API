@@ -11,6 +11,7 @@ namespace CharityWebsite.Core.Data
             DonationHistories = new HashSet<DonationHistory>();
             Donations = new HashSet<Donation>();
             Invoices = new HashSet<Invoice>();
+            PaymentHistories = new HashSet<PaymentHistory>();
             Problemreports = new HashSet<Problemreport>();
             Reports = new HashSet<Report>();
             Testimonials = new HashSet<Testimonial>();
@@ -29,6 +30,7 @@ namespace CharityWebsite.Core.Data
         public virtual ICollection<DonationHistory> DonationHistories { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<PaymentHistory> PaymentHistories { get; set; }
         public virtual ICollection<Problemreport> Problemreports { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
         public virtual ICollection<Testimonial> Testimonials { get; set; }

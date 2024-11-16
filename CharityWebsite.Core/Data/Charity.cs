@@ -9,6 +9,7 @@ namespace CharityWebsite.Core.Data
         {
             Bankaccounts = new HashSet<Bankaccount>();
             DonationHistories = new HashSet<DonationHistory>();
+            PaymentHistories = new HashSet<PaymentHistory>();
             Problemreports = new HashSet<Problemreport>();
         }
 
@@ -27,6 +28,7 @@ namespace CharityWebsite.Core.Data
         public virtual Userr? User { get; set; }
         public virtual ICollection<Bankaccount> Bankaccounts { get; set; }
         public virtual ICollection<DonationHistory> DonationHistories { get; set; }
+        public virtual ICollection<PaymentHistory> PaymentHistories { get; set; }
         public virtual ICollection<Problemreport> Problemreports { get; set; }
     }
 }

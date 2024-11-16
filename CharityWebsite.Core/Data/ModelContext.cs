@@ -24,6 +24,7 @@ namespace CharityWebsite.Core.Data
         public virtual DbSet<DonationHistory> DonationHistories { get; set; } = null!;
         public virtual DbSet<Donationform> Donationforms { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
+        public virtual DbSet<PaymentHistory> PaymentHistories { get; set; } = null!;
         public virtual DbSet<Problemreport> Problemreports { get; set; } = null!;
         public virtual DbSet<Report> Reports { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
@@ -31,6 +32,7 @@ namespace CharityWebsite.Core.Data
         public virtual DbSet<Userr> Userrs { get; set; } = null!;
         public virtual DbSet<Visacard> Visacards { get; set; } = null!;
         public virtual DbSet<Website> Websites { get; set; } = null!;
+        public virtual DbSet<WebsiteBalance> WebsiteBalances { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -364,6 +366,54 @@ namespace CharityWebsite.Core.Data
                     .HasConstraintName("FK_USERINV");
             });
 
+            modelBuilder.Entity<PaymentHistory>(entity =>
+            {
+                entity.HasKey(e => e.Paymentid)
+                    .HasName("SYS_C008658");
+
+                entity.ToTable("PAYMENT_HISTORY");
+
+                entity.Property(e => e.Paymentid)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("PAYMENTID");
+
+                entity.Property(e => e.Amount)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("AMOUNT");
+
+                entity.Property(e => e.Charityid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("CHARITYID");
+
+                entity.Property(e => e.Paymentdate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("PAYMENTDATE")
+                    .HasDefaultValueSql("SYSDATE");
+
+                entity.Property(e => e.Paymentstatus)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("PAYMENTSTATUS")
+                    .HasDefaultValueSql("'Success'");
+
+                entity.Property(e => e.Userid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("USERID");
+
+                entity.HasOne(d => d.Charity)
+                    .WithMany(p => p.PaymentHistories)
+                    .HasForeignKey(d => d.Charityid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CHARITYPAYMENT");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PaymentHistories)
+                    .HasForeignKey(d => d.Userid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERPAYMENT");
+            });
+
             modelBuilder.Entity<Problemreport>(entity =>
             {
                 entity.ToTable("PROBLEMREPORT");
@@ -604,6 +654,39 @@ namespace CharityWebsite.Core.Data
                     .HasColumnType("NUMBER")
                     .ValueGeneratedOnAdd()
                     .HasColumnName("WEBSITEID");
+            });
+
+            modelBuilder.Entity<WebsiteBalance>(entity =>
+            {
+                entity.ToTable("WEBSITE_BALANCE");
+
+                entity.HasIndex(e => e.Websiteid, "UNQ_WEBSITEBALANCE")
+                    .IsUnique();
+
+                entity.Property(e => e.Websitebalanceid)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("WEBSITEBALANCEID");
+
+                entity.Property(e => e.Balance)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("BALANCE")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.Lastupdated)
+                    .HasColumnType("DATE")
+                    .HasColumnName("LASTUPDATED")
+                    .HasDefaultValueSql("SYSDATE");
+
+                entity.Property(e => e.Websiteid)
+                    .HasColumnType("NUMBER")
+                    .HasColumnName("WEBSITEID");
+
+                entity.HasOne(d => d.Website)
+                    .WithOne(p => p.WebsiteBalance)
+                    .HasForeignKey<WebsiteBalance>(d => d.Websiteid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WEBSITEBALANCE");
             });
 
             OnModelCreatingPartial(modelBuilder);

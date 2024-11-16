@@ -12,6 +12,7 @@ namespace CharityWebsite.Core.Data
 
         public decimal Websiteid { get; set; }
 
+        public virtual WebsiteBalance? WebsiteBalance { get; set; }
         public virtual ICollection<Bankaccount> Bankaccounts { get; set; }
     }
 }
