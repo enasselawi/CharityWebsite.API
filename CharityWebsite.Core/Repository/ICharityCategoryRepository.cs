@@ -18,6 +18,7 @@ namespace CharityWebsite.Core.Repository
         List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities();
         // the new 
         List<CharityCategoryWithPaidCharities> GetCategoriesAndPaidCharities();
+       
 
     }
 }

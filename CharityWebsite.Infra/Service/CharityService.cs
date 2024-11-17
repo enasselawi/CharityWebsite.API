@@ -41,7 +41,15 @@ namespace CharityWebsite.Infra.Service
         {
             charityRepository.DeleteCharity(id);
         }
+        // New method to call GetCharitiesByUserId
+
+     
 
 
     }
 }
+
+
+
+
+

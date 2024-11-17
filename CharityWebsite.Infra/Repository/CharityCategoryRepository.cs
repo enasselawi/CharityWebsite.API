@@ -2,12 +2,14 @@
 using CharityWebsite.Core.Data;
 using CharityWebsite.Core.Repository;
 using Dapper;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace CharityWebsite.Infra.Repository
 {
@@ -77,6 +79,10 @@ namespace CharityWebsite.Infra.Repository
             );
             return result.ToList();
         }
+
+        // get charity based on user id 
+      
+
 
 
     }

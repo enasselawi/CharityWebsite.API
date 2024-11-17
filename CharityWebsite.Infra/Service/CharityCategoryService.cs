@@ -37,6 +37,7 @@ namespace CharityWebsite.Infra.Service
         {
             return _repository.GetCategoriesAndPaidCharities();
         }
+      
 
 
     }

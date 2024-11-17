@@ -14,5 +14,7 @@ namespace CharityWebsite.Core.Service
         void CreateCharity(Charity charity);
         void UpdateCharity(Charity charity);
         void DeleteCharity(int id);
+     
+
     }
 }

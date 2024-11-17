@@ -18,6 +18,7 @@ namespace CharityWebsite.Core.Service
         List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities();
         //the new 
         List<CharityCategoryWithPaidCharities> GetCategoriesAndPaidCharities();
+     
 
     }
 }
