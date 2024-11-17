@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace CharityWebsite.API.Data
+{
+    public partial class Website
+    {
+        public Website()
+        {
+            Bankaccounts = new HashSet<Bankaccount>();
+        }
+
+        public decimal Websiteid { get; set; }
+
+        public virtual WebsiteBalance? WebsiteBalance { get; set; }
+        public virtual ICollection<Bankaccount> Bankaccounts { get; set; }
+    }
+}

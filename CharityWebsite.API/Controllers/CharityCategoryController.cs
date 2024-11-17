@@ -50,6 +50,14 @@ namespace CharityWebsite.API.Controllers
             return Ok(result);
         }
 
+        //the new 
+        [HttpGet("GetCategoriesAndPaidCharities")]
+        public ActionResult<List<CharityCategoryWithPaidCharities>> GetCategoriesAndPaidCharities()
+        {
+            var result = _service.GetCategoriesAndPaidCharities();
+            return Ok(result);
+        }
+
 
     }
 }

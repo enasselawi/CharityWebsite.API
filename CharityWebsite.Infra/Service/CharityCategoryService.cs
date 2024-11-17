@@ -32,6 +32,12 @@ namespace CharityWebsite.Infra.Service
         {
             return _repository.GetAllCharityCategoriesWithCharities();
         }
+        //the new 
+        public List<CharityCategoryWithPaidCharities> GetCategoriesAndPaidCharities()
+        {
+            return _repository.GetCategoriesAndPaidCharities();
+        }
+
 
     }
 }

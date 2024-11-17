@@ -68,5 +68,16 @@ namespace CharityWebsite.Infra.Repository
             return result.ToList();
         }
 
+
+        public List<CharityCategoryWithPaidCharities> GetCategoriesAndPaidCharities()
+        {
+            var result = _dbContext.Connection.Query<CharityCategoryWithPaidCharities>(
+                "GET_CATEGORIES_AND_PAID_CHARITIES",
+                commandType: CommandType.StoredProcedure
+            );
+            return result.ToList();
+        }
+
+
     }
 }

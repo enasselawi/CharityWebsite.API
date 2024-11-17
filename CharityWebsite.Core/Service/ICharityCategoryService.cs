@@ -16,5 +16,8 @@ namespace CharityWebsite.Core.Service
         void DeleteCharityCategory(int id);
         //the new added 
         List<CharityCategoryWithCharities> GetAllCharityCategoriesWithCharities();
+        //the new 
+        List<CharityCategoryWithPaidCharities> GetCategoriesAndPaidCharities();
+
     }
 }
