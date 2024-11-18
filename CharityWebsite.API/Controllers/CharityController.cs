@@ -46,7 +46,8 @@ namespace CharityWebsite.API.Controllers
         }
 
 
-
+        [HttpGet("GetCharitiesByUserId/{userId}")]
+        public List<Charity> GetCharitiesByUserId(int userId) => charityService.GetCharitiesByUserId(userId);
 
 
 

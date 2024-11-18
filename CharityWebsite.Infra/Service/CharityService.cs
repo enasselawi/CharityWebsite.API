@@ -43,7 +43,8 @@ namespace CharityWebsite.Infra.Service
         }
         // New method to call GetCharitiesByUserId
 
-     
+        public List<Charity> GetCharitiesByUserId(int userId) => charityRepository.GetCharitiesByUserId(userId);
+
 
 
     }

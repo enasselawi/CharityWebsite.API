@@ -69,7 +69,12 @@ namespace CharityWebsite.Infra.Repository
         }
 
 
-      
+        public List<Charity> GetCharitiesByUserId(int userId)
+        {
+            var p = new DynamicParameters();
+            p.Add("new_user_id", userId, DbType.Int32);
+            return dBContext.Connection.Query<Charity>("USER_CHARITY_PACKAGE.GET_CHARITIES_BY_USER_ID", p, commandType: CommandType.StoredProcedure).ToList();
+        }
 
 
 

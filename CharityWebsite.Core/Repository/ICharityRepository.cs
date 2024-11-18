@@ -14,8 +14,9 @@ namespace CharityWebsite.Core.Repository
         void CreateCharity(Charity charity);
         void UpdateCharity(Charity charity);
         void DeleteCharity(int id);
-       
 
+        // the new method 
+        List<Charity> GetCharitiesByUserId(int userId);
 
     }
 }
