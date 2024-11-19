@@ -2,12 +2,10 @@
 using CharityWebsite.Core.Data;
 using CharityWebsite.Core.Repository;
 using Dapper;
-using System;
-using System.Collections.Generic;
+
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static CharityWebsite.Core.Data.Charity;
+
 
 namespace CharityWebsite.Infra.Repository
 {
@@ -76,6 +74,68 @@ namespace CharityWebsite.Infra.Repository
             return dBContext.Connection.Query<Charity>("USER_CHARITY_PACKAGE.GET_CHARITIES_BY_USER_ID", p, commandType: CommandType.StoredProcedure).ToList();
         }
 
+
+
+
+        public Aboutuscontent GetAboutUsContent()
+        {
+            var p = new DynamicParameters();
+
+            // Increase the buffer size for p_title and use DbType.String for CLOB data
+            p.Add("p_title", dbType: DbType.String, direction: ParameterDirection.Output, size: 4000); // Increased size
+            p.Add("p_content", dbType: DbType.String, direction: ParameterDirection.Output, size: 4000); // Use large size for CLOB
+
+            // Execute the stored procedure
+            dBContext.Connection.Execute("CONTENT_PACKAGE.GET_ABOUT_US_CONTENT", p, commandType: CommandType.StoredProcedure);
+
+            return new Aboutuscontent
+            {
+                Title = p.Get<string>("p_title"),
+                Content = p.Get<string>("p_content")
+            };
+        }
+
+
+
+        public Homecontent GetHomeContent()
+        {
+            var p = new DynamicParameters();
+
+            // Use sufficient buffer sizes and specify DbType.String for CLOB data
+            p.Add("p_title", dbType: DbType.String, direction: ParameterDirection.Output, size: 4000);
+            p.Add("p_content", dbType: DbType.String, direction: ParameterDirection.Output, size: 4000);
+
+            // Execute the stored procedure
+            dBContext.Connection.Execute("CONTENT_PACKAGE.GET_HOME_CONTENT", p, commandType: CommandType.StoredProcedure);
+
+            // Return the result as a Homecontent object
+            return new Homecontent
+            {
+                Title = p.Get<string>("p_title"),
+                Content = p.Get<string>("p_content")
+            };
+        }
+
+
+        // Method to update About Us content
+        public void UpdateAboutUsContent(Aboutuscontent content)
+        {
+            var p = new DynamicParameters();
+            p.Add("p_title", content.Title, DbType.String, ParameterDirection.Input);
+            p.Add("p_content", content.Content, DbType.String, ParameterDirection.Input);
+
+            dBContext.Connection.Execute("CONTENT_PACKAGE.UPDATE_ABOUT_US_CONTENT", p, commandType: CommandType.StoredProcedure);
+        }
+
+        // Method to update Home content
+        public void UpdateHomeContent(Homecontent content)
+        {
+            var p = new DynamicParameters();
+            p.Add("p_title", content.Title, DbType.String, ParameterDirection.Input);
+            p.Add("p_content", content.Content, DbType.String, ParameterDirection.Input);
+
+            dBContext.Connection.Execute("CONTENT_PACKAGE.UPDATE_HOME_CONTENT", p, commandType: CommandType.StoredProcedure);
+        }
 
 
 

@@ -50,9 +50,41 @@ namespace CharityWebsite.API.Controllers
         public List<Charity> GetCharitiesByUserId(int userId) => charityService.GetCharitiesByUserId(userId);
 
 
+        [HttpGet("GetAboutUsContent")]
+        public IActionResult GetAboutUsContent()
+        {
+            var content = charityService.GetAboutUsContent();
+            if (content == null)
+            {
+                return NotFound("About Us content not found.");
+            }
+            return Ok(content);
+        }
 
+        [HttpGet("GetHomeContent")]
+        public IActionResult GetHomeContent()
+        {
+            var content = charityService.GetHomeContent();
+            if (content == null)
+            {
+                return NotFound("Home content not found.");
+            }
+            return Ok(content);
+        }
 
+        [HttpPut("UpdateAboutUsContent")]
+        public IActionResult UpdateAboutUsContent([FromBody] Aboutuscontent content)
+        {
+            charityService.UpdateAboutUsContent(content);
+            return Ok("About Us content updated successfully.");
+        }
 
+        [HttpPut("UpdateHomeContent")]
+        public IActionResult UpdateHomeContent([FromBody] Homecontent content)
+        {
+            charityService.UpdateHomeContent(content);
+            return Ok("Home content updated successfully.");
+        }
 
 
 

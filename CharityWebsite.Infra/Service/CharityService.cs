@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CharityWebsite.Core.Data.Charity;
 
 namespace CharityWebsite.Infra.Service
 {
@@ -45,6 +46,15 @@ namespace CharityWebsite.Infra.Service
 
         public List<Charity> GetCharitiesByUserId(int userId) => charityRepository.GetCharitiesByUserId(userId);
 
+
+
+        public Aboutuscontent GetAboutUsContent() => charityRepository.GetAboutUsContent();
+
+        public Homecontent GetHomeContent() => charityRepository.GetHomeContent();
+
+        public void UpdateAboutUsContent(Aboutuscontent content) => charityRepository.UpdateAboutUsContent(content);
+
+        public void UpdateHomeContent(Homecontent content) => charityRepository.UpdateHomeContent(content);
 
 
     }

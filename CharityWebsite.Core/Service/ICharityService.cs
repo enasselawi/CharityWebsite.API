@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CharityWebsite.Core.Data.Charity;
 
 namespace CharityWebsite.Core.Service
 {
@@ -16,5 +17,11 @@ namespace CharityWebsite.Core.Service
         void DeleteCharity(int id);
 
         List<Charity> GetCharitiesByUserId(int userId);
+
+        Aboutuscontent GetAboutUsContent();
+        Homecontent GetHomeContent();
+        void UpdateAboutUsContent(Aboutuscontent content);
+        void UpdateHomeContent(Homecontent content);
+
     }
 }

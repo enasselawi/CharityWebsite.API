@@ -16,6 +16,7 @@ namespace CharityWebsite.Core.Data
         {
         }
 
+        public virtual DbSet<Aboutuscontent> Aboutuscontents { get; set; } = null!;
         public virtual DbSet<Bankaccount> Bankaccounts { get; set; } = null!;
         public virtual DbSet<Charity> Charities { get; set; } = null!;
         public virtual DbSet<Charitycategory> Charitycategories { get; set; } = null!;
@@ -23,6 +24,7 @@ namespace CharityWebsite.Core.Data
         public virtual DbSet<Donation> Donations { get; set; } = null!;
         public virtual DbSet<DonationHistory> DonationHistories { get; set; } = null!;
         public virtual DbSet<Donationform> Donationforms { get; set; } = null!;
+        public virtual DbSet<Homecontent> Homecontents { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
         public virtual DbSet<PaymentHistory> PaymentHistories { get; set; } = null!;
         public virtual DbSet<Problemreport> Problemreports { get; set; } = null!;
@@ -47,6 +49,25 @@ namespace CharityWebsite.Core.Data
         {
             modelBuilder.HasDefaultSchema("C##ENAS2001")
                 .UseCollation("USING_NLS_COMP");
+
+            modelBuilder.Entity<Aboutuscontent>(entity =>
+            {
+                entity.ToTable("ABOUTUSCONTENT");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Content)
+                    .HasColumnType("CLOB")
+                    .HasColumnName("CONTENT");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("TITLE");
+            });
 
             modelBuilder.Entity<Bankaccount>(entity =>
             {
@@ -328,6 +349,25 @@ namespace CharityWebsite.Core.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("STATUS");
+            });
+
+            modelBuilder.Entity<Homecontent>(entity =>
+            {
+                entity.ToTable("HOMECONTENT");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("NUMBER")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Content)
+                    .HasColumnType("CLOB")
+                    .HasColumnName("CONTENT");
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("TITLE");
             });
 
             modelBuilder.Entity<Invoice>(entity =>
@@ -688,6 +728,10 @@ namespace CharityWebsite.Core.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WEBSITEBALANCE");
             });
+
+            modelBuilder.HasSequence("ABOUTUSCONTENTSEQ");
+
+            modelBuilder.HasSequence("HOMECONTENTSEQ");
 
             OnModelCreatingPartial(modelBuilder);
         }
